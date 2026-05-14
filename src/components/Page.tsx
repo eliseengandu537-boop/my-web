@@ -12,7 +12,7 @@ export function Page({ title, eyebrow, children }: { title: string; eyebrow?: st
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-mono text-xs tracking-[0.3em] uppercase text-primary mb-4"
+            className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-semibold"
           >
             {eyebrow}
           </motion.p>
@@ -35,8 +35,8 @@ export function Page({ title, eyebrow, children }: { title: string; eyebrow?: st
       </main>
       <footer className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} dev.cube — Crafted in three dimensions.</p>
-          <p className="font-mono text-xs">{"// built with react · three.js · ❤"}</p>
+          <p>© {new Date().getFullYear()} Mr Ngandu — Software Developer & Designer.</p>
+          <p className="text-xs">+27 74 706 7226 · eliseeweb@gmail.com</p>
         </div>
       </footer>
     </div>

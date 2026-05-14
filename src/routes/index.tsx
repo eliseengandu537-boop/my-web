@@ -1,15 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail, Phone } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Scene3D } from "@/components/Scene3D";
+import portrait from "@/assets/portrait.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "dev.cube — Software Developer Portfolio in 3D" },
-      { name: "description", content: "Full-stack developer crafting performant, beautiful web experiences in three dimensions." },
+      { title: "Mr Ngandu — Software Developer & Graphic Designer" },
+      { name: "description", content: "Portfolio of Mr Ngandu — software developer, graphic designer and marketer building scalable web apps and CRM systems." },
     ],
   }),
 });
@@ -32,25 +33,38 @@ function Index() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-mono text-xs tracking-[0.3em] uppercase text-primary mb-6"
+            className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-semibold"
           >
-            // software engineer · creative coder
+            // software developer · graphic designer · marketer
           </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] max-w-4xl"
-          >
-            Building the web in <span className="text-gradient">three</span> dimensions.
-          </motion.h1>
+
+          <div className="flex items-start gap-6 mb-6 pointer-events-auto">
+            <motion.img
+              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.7 }}
+              src={portrait}
+              alt="Mr Ngandu"
+              className="hidden sm:block w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover border-2 border-primary glow"
+            />
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] max-w-3xl"
+            >
+              Hi, I'm <span className="text-gradient">Mr Ngandu</span> — I build the web.
+            </motion.h1>
+          </div>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-8 text-lg md:text-xl text-muted-foreground max-w-xl"
+            className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl"
           >
-            I'm Alex — a software developer designing fast interfaces, expressive 3D worlds and resilient backends.
+            Software Developer skilled in JavaScript, Node.js, Docker and AWS. Also a Graphic
+            Designer & Marketer crafting brands that ship.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -58,9 +72,16 @@ function Index() {
             transition={{ duration: 0.7, delay: 0.35 }}
             className="mt-10 flex flex-wrap gap-4 pointer-events-auto"
           >
+            <a
+              href="/resume.pdf"
+              download
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary-glow transition-all glow"
+            >
+              <Download size={18} /> Download Resume
+            </a>
             <Link
               to="/projects"
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary-glow transition-all glow"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-card/40 backdrop-blur font-semibold hover:border-primary transition-colors"
             >
               View projects
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -75,13 +96,16 @@ function Index() {
 
           <div className="mt-16 flex gap-4 pointer-events-auto">
             {[
+              { Icon: Phone, href: "https://wa.me/27747067226" },
+              { Icon: Mail, href: "mailto:eliseeweb@gmail.com" },
               { Icon: Github, href: "#" },
               { Icon: Linkedin, href: "#" },
-              { Icon: Mail, href: "/contact" },
             ].map(({ Icon, href }, i) => (
               <a
                 key={i}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 grid place-items-center rounded-md border border-border bg-card/40 backdrop-blur text-muted-foreground hover:text-primary hover:border-primary transition-colors"
               >
                 <Icon size={16} />
@@ -90,7 +114,7 @@ function Index() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs text-muted-foreground tracking-widest">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground tracking-widest">
           ↓ SCROLL TO EXPLORE
         </div>
       </section>
@@ -140,8 +164,8 @@ function Index() {
 
       <footer className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} dev.cube — Crafted in three dimensions.</p>
-          <p className="font-mono text-xs">{"// built with react · three.js · ❤"}</p>
+          <p>© {new Date().getFullYear()} Mr Ngandu — Software Developer & Designer.</p>
+          <p className="text-xs">+27 74 706 7226 · eliseeweb@gmail.com</p>
         </div>
       </footer>
     </div>
