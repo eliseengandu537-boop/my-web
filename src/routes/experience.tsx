@@ -6,46 +6,40 @@ export const Route = createFileRoute("/experience")({
   component: Experience,
   head: () => ({
     meta: [
-      { title: "Experience — dev.cube" },
-      { name: "description", content: "Professional experience as a software developer across startups and agencies." },
+      { title: "Experience — Mr Ngandu" },
+      { name: "description", content: "Professional experience as a software developer and graphic designer." },
     ],
   }),
 });
 
 const jobs = [
   {
-    role: "Senior Software Engineer",
-    company: "Lumen Labs",
-    period: "2023 — Present",
+    role: "Software Developer",
+    company: "Kamu Support",
+    period: "Recent",
     points: [
-      "Lead frontend architecture for a real-time 3D collaboration platform used by 30k creators.",
-      "Cut interaction latency by 62% through WebGL instancing and shader optimisation.",
-      "Mentor a team of 4 engineers; introduced design tokens and a shared motion system.",
+      "Built web-based management solutions and CRM modules.",
+      "Developed tracking and reporting modules used across teams.",
+      "Improved workflow automation and reduced manual operations.",
+      "Managed system debugging, optimization and database integration.",
+      "Worked with Docker and AWS for deployment and dev environments.",
     ],
   },
   {
-    role: "Full-Stack Developer",
-    company: "Northwind Studio",
-    period: "2021 — 2023",
+    role: "Graphic / Digital Designer",
+    company: "Takealot",
+    period: "Previous",
     points: [
-      "Shipped 12 client products from concept to production — fintech, e-commerce, SaaS.",
-      "Built a custom CMS on Cloudflare Workers powering 200+ marketing pages.",
-    ],
-  },
-  {
-    role: "Frontend Engineer",
-    company: "Pixel & Pine",
-    period: "2019 — 2021",
-    points: [
-      "Designed reusable React component library adopted across 8 brand sites.",
-      "Won 2 awwwards for interactive WebGL campaign sites.",
+      "Created digital assets, UI layouts and branding materials.",
+      "Designed for marketing campaigns and business platforms.",
+      "Collaborated with cross-functional teams to improve digital UX.",
     ],
   },
 ];
 
 function Experience() {
   return (
-    <Page eyebrow="// timeline" title="Six years, one obsession: shipping.">
+    <Page eyebrow="// timeline" title="Where I've shipped, designed and shaped systems.">
       <div className="relative">
         <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border" />
         <div className="space-y-16">
@@ -60,7 +54,7 @@ function Experience() {
             >
               <div className={`pl-8 md:pl-0 ${i % 2 ? "md:text-left" : "md:text-right"}`}>
                 <div className="absolute left-0 md:left-1/2 top-2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary glow" />
-                <p className="font-mono text-xs tracking-widest text-primary uppercase">{j.period}</p>
+                <p className="text-xs tracking-widest text-primary uppercase font-semibold">{j.period}</p>
                 <h3 className="mt-2 text-2xl font-bold">{j.role}</h3>
                 <p className="text-muted-foreground">{j.company}</p>
               </div>
