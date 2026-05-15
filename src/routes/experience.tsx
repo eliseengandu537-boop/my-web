@@ -15,6 +15,17 @@ export const Route = createFileRoute("/experience")({
 const jobs = [
   {
     role: "Software Developer",
+    company: "DG-Property",
+    period: "Current",
+    points: [
+      "Developed and maintained a CRM system for property management and broker operations.",
+      "Designed modules for broker tracking, management dashboards, financial tracking and workflow automation.",
+      "Integrated system functionality to improve operational efficiency and reporting.",
+      "Streamlined business process management across teams.",
+    ],
+  },
+  {
+    role: "Software Developer",
     company: "Kamu Support",
     period: "Recent",
     points: [
