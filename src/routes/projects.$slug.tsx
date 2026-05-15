@@ -111,6 +111,37 @@ function ProjectDetail() {
         </aside>
       </div>
 
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="mt-20">
+          <h2 className="text-xs uppercase tracking-widest text-primary font-semibold mb-6">Gallery</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {project.gallery.map((g, i) => (
+              <motion.a
+                key={i}
+                href={g.src}
+                target="_blank"
+                rel="noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.04 }}
+                className="group rounded-xl overflow-hidden border border-border bg-card block"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={g.src}
+                    alt={g.caption}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <p className="p-3 text-sm text-muted-foreground">{g.caption}</p>
+              </motion.a>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="mt-20">
         <h2 className="text-2xl font-bold mb-6">More projects</h2>
         <div className="grid md:grid-cols-3 gap-6">
