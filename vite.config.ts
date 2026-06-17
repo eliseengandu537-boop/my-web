@@ -9,7 +9,11 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
 // @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
 export default defineConfig({
+  // Disable the Cloudflare Worker build so we can produce a static SPA for Vercel.
+  cloudflare: false,
   tanstackStart: {
     server: { entry: "server" },
+    // Render as a client-side single-page app (static output) for Vercel hosting.
+    spa: { enabled: true },
   },
 });
