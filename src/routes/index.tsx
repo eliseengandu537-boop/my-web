@@ -2,15 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Github, Linkedin, Mail, Phone } from "lucide-react";
 import { Nav } from "@/components/Nav";
-import { Scene3D } from "@/components/Scene3D";
-import portrait from "@/assets/portrait.jpg";
+import bgVideo from "@/assets/background.mp4";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
       { title: "Mr Ngandu — Software Developer & Graphic Designer" },
-      { name: "description", content: "Portfolio of Mr Ngandu — software developer, graphic designer and marketer building scalable web apps and CRM systems." },
+      { name: "description", content: "Portfolio of Mr Ngandu  software developer, graphic designer and marketer building scalable web apps and CRM systems." },
     ],
   }),
 });
@@ -21,13 +20,18 @@ function Index() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-grid opacity-40" />
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={bgVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 [background:var(--gradient-radial)]" />
-
-        <div className="absolute inset-0">
-          <Scene3D interactive />
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pointer-events-none">
           <motion.p
@@ -39,21 +43,13 @@ function Index() {
           </motion.p>
 
           <div className="flex items-start gap-6 mb-6 pointer-events-auto">
-            <motion.img
-              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.7 }}
-              src={portrait}
-              alt="Mr Ngandu"
-              className="hidden sm:block w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover border-2 border-primary glow"
-            />
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] max-w-3xl"
+              className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] max-w-3xl text-white drop-shadow-lg"
             >
-              Hi, I'm <span className="text-gradient">Mr Ngandu</span> — I build the web.
+              Hi, I'm <span className="text-gradient">Mr Ngandu</span> I build the web.
             </motion.h1>
           </div>
 
@@ -61,10 +57,10 @@ function Index() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl"
+            className="mt-4 text-lg md:text-xl text-white/85 max-w-xl drop-shadow"
           >
-            Software Developer skilled in JavaScript, Node.js, Docker and AWS. Also a Graphic
-            Designer & Marketer crafting brands that ship.
+            Software Developer . Graphic
+            Designer & Marketeting manager. I create scalable web applications, CRM systems and digital assets that help businesses grow and succeed online.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -98,7 +94,7 @@ function Index() {
             {[
               { Icon: Phone, href: "https://wa.me/27747067226" },
               { Icon: Mail, href: "mailto:eliseeweb@gmail.com" },
-              { Icon: Github, href: "#" },
+              { Icon: Github, href: "https://github.com/eliseengandu537-boop" },
               { Icon: Linkedin, href: "#" },
             ].map(({ Icon, href }, i) => (
               <a
@@ -106,7 +102,7 @@ function Index() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 grid place-items-center rounded-md border border-border bg-card/40 backdrop-blur text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                className="w-10 h-10 grid place-items-center rounded-md border border-border bg-card/40 backdrop-blur text-white hover:text-primary hover:border-primary transition-colors"
               >
                 <Icon size={16} />
               </a>
@@ -114,7 +110,7 @@ function Index() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground tracking-widest">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-white/70 tracking-widest">
           ↓ SCROLL TO EXPLORE
         </div>
       </section>
@@ -151,7 +147,7 @@ function Index() {
             Have an idea? Let's <span className="text-gradient">ship it.</span>
           </h2>
           <p className="mt-6 text-muted-foreground max-w-xl mx-auto">
-            From rapid MVPs to large-scale platforms — I'll help you design, build and launch.
+            From rapid MVPs to large-scale platforms, I'll help you design, build and launch.
           </p>
           <Link
             to="/contact"
@@ -164,7 +160,7 @@ function Index() {
 
       <footer className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Mr Ngandu — Software Developer & Designer.</p>
+          <p>© {new Date().getFullYear()} Mr Ngandu, Software Developer & Designer.</p>
           <p className="text-xs">+27 74 706 7226 · eliseeweb@gmail.com</p>
         </div>
       </footer>

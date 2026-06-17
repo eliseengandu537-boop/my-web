@@ -73,7 +73,7 @@ function ProjectDetail() {
         </div>
 
         <aside className="space-y-6">
-          <div className="p-6 rounded-xl border border-border bg-card space-y-4">
+          <div className="sticky top-28 p-6 rounded-2xl border border-border glass glow-hover space-y-4">
             {project.client && (
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold">Client</p>
@@ -125,7 +125,7 @@ function ProjectDetail() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}
-                className="group rounded-xl overflow-hidden border border-border bg-card block"
+                className="group rounded-2xl overflow-hidden border border-border glass glow-hover block"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -150,10 +150,10 @@ function ProjectDetail() {
               key={p.slug}
               to="/projects/$slug"
               params={{ slug: p.slug }}
-              className="group rounded-xl overflow-hidden border border-border bg-card"
+              className="group rounded-2xl overflow-hidden border border-border glass glow-hover"
             >
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={p.image} alt={p.title} loading="lazy" width={1024} height={640} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={p.image} alt={p.title} loading="lazy" width={1024} height={640} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
               </div>
               <div className="p-4">
                 <p className="text-[10px] uppercase tracking-widest text-primary font-semibold">{p.tag}</p>

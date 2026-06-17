@@ -60,26 +60,28 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="md:hidden border-t border-border bg-background/95">
-          <ul className="px-6 py-4 flex flex-col gap-2">
+        <div className="md:hidden border-t border-white/10 bg-background/20 backdrop-blur-2xl shadow-2xl shadow-black/20">
+          <ul className="px-5 py-5 flex flex-col gap-1.5">
             {links.map((l) => (
               <li key={l.to}>
                 <Link
                   to={l.to}
                   onClick={() => setOpen(false)}
-                  className={`block px-3 py-2 rounded-md text-sm ${
-                    pathname === l.to ? "bg-primary/10 text-primary" : "text-muted-foreground"
+                  className={`block px-4 py-3 rounded-xl text-sm font-medium border transition-all duration-300 ${
+                    pathname === l.to
+                      ? "bg-primary/10 text-primary border-primary/30 shadow-sm shadow-primary/10"
+                      : "text-muted-foreground border-transparent hover:bg-foreground/5 hover:text-foreground hover:border-white/10"
                   }`}
                 >
                   {l.label}
                 </Link>
               </li>
             ))}
-            <li>
+            <li className="pt-2">
               <a
                 href="/resume.pdf"
                 download
-                className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground text-sm font-semibold"
+                className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30 hover:bg-primary-glow transition-all"
               >
                 <Download size={16} /> Download Resume
               </a>

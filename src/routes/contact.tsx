@@ -9,7 +9,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Mr Ngandu" },
-      { name: "description", content: "Get in touch with Mr Ngandu — messages are delivered instantly via WhatsApp." },
+      { name: "description", content: "Get in touch with Mr Ngandu  messages are delivered instantly via WhatsApp." },
     ],
   }),
 });
@@ -41,7 +41,7 @@ function Contact() {
       return;
     }
     const { name, email, subject, message } = parsed.data;
-    const text = `Hello Mr Ngandu,%0A%0A*${encodeURIComponent(subject)}*%0A%0A${encodeURIComponent(message)}%0A%0A— ${encodeURIComponent(name)} (${encodeURIComponent(email)})`;
+    const text = `Hello Mr Ngandu,%0A%0A*${encodeURIComponent(subject)}*%0A%0A${encodeURIComponent(message)}%0A%0AFrom ${encodeURIComponent(name)} (${encodeURIComponent(email)})`;
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -87,8 +87,8 @@ function Contact() {
         <aside className="lg:col-span-2 space-y-4">
           <ContactRow Icon={Phone} label="Phone / WhatsApp" value="+27 74 706 7226" href="https://wa.me/27747067226" />
           <ContactRow Icon={Mail} label="Email" value="eliseeweb@gmail.com" href="mailto:eliseeweb@gmail.com" />
-          <ContactRow Icon={MapPin} label="Based in" value="South Africa · DR Congo" />
-          <ContactRow Icon={Github} label="GitHub" value="@mrngandu" />
+          <ContactRow Icon={MapPin} label="Based in" value="South Africa" />
+          <ContactRow Icon={Github} label="GitHub" value="eliseengandu537-boop" href="https://github.com/eliseengandu537-boop" />
           <ContactRow Icon={Linkedin} label="LinkedIn" value="/in/mrngandu" />
 
           <div className="p-6 rounded-xl border border-primary bg-primary/5">

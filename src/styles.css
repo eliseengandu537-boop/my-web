@@ -35,14 +35,48 @@
 
 :root {
   --radius: 0.75rem;
-  /* Black, white, orange palette */
+  /* Light mode — white / orange palette */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0 0);
+  --card: oklch(0.97 0 0);
+  --card-foreground: oklch(0.12 0 0);
+  --popover: oklch(0.97 0 0);
+  --popover-foreground: oklch(0.12 0 0);
+  --primary: oklch(0.65 0.19 48); /* vivid orange */
+  --primary-foreground: oklch(1 0 0);
+  --primary-glow: oklch(0.72 0.21 55);
+  --secondary: oklch(0.94 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
+  --muted: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.48 0 0);
+  --accent: oklch(0.65 0.19 48);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.88 0 0);
+  --ring: oklch(0.65 0.19 48);
+
+  --gradient-primary: linear-gradient(135deg, oklch(0.65 0.19 48), oklch(0.72 0.21 55));
+  --gradient-radial:
+    radial-gradient(circle at 50% 0%, oklch(0.65 0.19 48 / 0.10), transparent 58%),
+    radial-gradient(circle at 74% 24%, oklch(0.65 0.19 48 / 0.06), transparent 38%);
+  --shadow-glow: 0 0 60px oklch(0.65 0.19 48 / 0.3);
+  --shadow-elegant: 0 20px 60px -10px oklch(0 0 0 / 0.15);
+  --grid-pattern:
+    linear-gradient(oklch(0.88 0 0) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.88 0 0) 1px, transparent 1px);
+}
+
+.dark {
+  /* Dark mode — original black / orange palette */
   --background: oklch(0.08 0 0);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.12 0 0);
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.72 0.19 48);   /* vivid orange */
+  --primary: oklch(0.72 0.19 48);
   --primary-foreground: oklch(0.08 0 0);
   --primary-glow: oklch(0.78 0.21 55);
   --secondary: oklch(0.18 0 0);
@@ -58,16 +92,23 @@
   --ring: oklch(0.72 0.19 48);
 
   --gradient-primary: linear-gradient(135deg, oklch(0.72 0.19 48), oklch(0.78 0.21 55));
-  --gradient-radial: radial-gradient(circle at 50% 0%, oklch(0.72 0.19 48 / 0.25), transparent 60%);
+  --gradient-radial:
+    radial-gradient(circle at 50% 0%, oklch(0.56 0.18 286 / 0.28), transparent 58%),
+    radial-gradient(circle at 74% 24%, oklch(0.62 0.13 300 / 0.14), transparent 38%);
   --shadow-glow: 0 0 60px oklch(0.72 0.19 48 / 0.45);
   --shadow-elegant: 0 20px 60px -10px oklch(0 0 0 / 0.6);
-  --grid-pattern: linear-gradient(oklch(0.22 0 0) 1px, transparent 1px),
+  --grid-pattern:
+    linear-gradient(oklch(0.22 0 0) 1px, transparent 1px),
     linear-gradient(90deg, oklch(0.22 0 0) 1px, transparent 1px);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -88,13 +129,46 @@
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   }
-  .glow { box-shadow: var(--shadow-glow); }
-  .perspective-1000 { perspective: 1000px; }
-  .preserve-3d { transform-style: preserve-3d; }
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+  .glass {
+    background-color: color-mix(in oklab, var(--card) 55%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .glow-hover {
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+  }
+  .glow-hover:hover {
+    border-color: var(--primary);
+    box-shadow:
+      0 0 0 1px oklch(0.72 0.19 48 / 0.4),
+      0 16px 50px -12px oklch(0.72 0.19 48 / 0.4);
+  }
+  .neon-text {
+    text-shadow: 0 0 28px oklch(0.72 0.19 48 / 0.5);
+  }
+  .neon-line {
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
-.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

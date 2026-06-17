@@ -56,7 +56,7 @@ function Resume() {
             <div className="space-y-3 text-sm">
               <Row Icon={Phone} label="+27 74 706 7226" />
               <Row Icon={Mail} label="eliseeweb@gmail.com" />
-              <Row Icon={MapPin} label="South Africa · Remote" />
+              <Row Icon={MapPin} label="South Africa" />
             </div>
           </div>
         </motion.div>
@@ -79,30 +79,30 @@ function Resume() {
 
           <Section title="Education">
             <div className="space-y-1">
-              <p className="font-semibold">Matric — Grade 12, Software Engineering</p>
-              <p className="text-muted-foreground">Jeppe College · DR Congo</p>
+              <p className="font-semibold">Matric, Grade 12, Software Engineering</p>
+              <p className="text-muted-foreground">Jeppe College · South Africa</p>
             </div>
           </Section>
 
           <Section title="Work Experience">
             <div className="space-y-6">
               <div>
-                <p className="font-semibold">Software Developer — Kamu Support</p>
+                <p className="font-semibold">Software Developer, Kamu Support</p>
                 <ul className="mt-2 space-y-1 text-muted-foreground text-sm">
-                  <li>— Built web-based management solutions and CRM modules</li>
-                  <li>— Developed tracking and reporting modules</li>
-                  <li>— Improved workflow automation</li>
-                  <li>— Managed system debugging and optimization</li>
-                  <li>— Supported database integration and maintenance</li>
-                  <li>— Worked with Docker and AWS deployment environments</li>
+                  <li>Built web-based management solutions and CRM modules</li>
+                  <li>Developed tracking and reporting modules</li>
+                  <li>Improved workflow automation</li>
+                  <li>Managed system debugging and optimization</li>
+                  <li>Supported database integration and maintenance</li>
+                  <li>Worked with Docker and AWS deployment environments</li>
                 </ul>
               </div>
               <div>
-                <p className="font-semibold">Graphic / Digital Designer — Takealot</p>
+                <p className="font-semibold">Graphic / Digital Designer, Takealot</p>
                 <ul className="mt-2 space-y-1 text-muted-foreground text-sm">
-                  <li>— Created digital assets, UI layouts and branding materials</li>
-                  <li>— Designed marketing campaigns and business platform visuals</li>
-                  <li>— Collaborated with teams to improve digital user experiences</li>
+                  <li>Created digital assets, UI layouts and branding materials</li>
+                  <li>Designed marketing campaigns and business platform visuals</li>
+                  <li>Collaborated with teams to improve digital user experiences</li>
                 </ul>
               </div>
             </div>
@@ -117,7 +117,7 @@ function Resume() {
           </Section>
 
           <Section title="Languages">
-            <p className="text-muted-foreground">English · French · Lingala</p>
+            <p className="text-muted-foreground">English · French</p>
           </Section>
         </motion.div>
       </div>
