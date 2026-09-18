@@ -72,10 +72,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "dev.cube — 3D Portfolio of a Software Developer" },
-      { name: "description", content: "Immersive 3D portfolio showcasing skills, experience and projects of a software developer." },
-      { property: "og:title", content: "dev.cube — 3D Developer Portfolio" },
-      { property: "og:description", content: "Immersive 3D portfolio: skills, experience, projects." },
+      { title: "Mr Ngandu — Creative Developer & Designer" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Mr Ngandu — a creative developer, designer and marketer building memorable digital products.",
+      },
+      { property: "og:title", content: "Mr Ngandu — Creative Developer" },
+      {
+        property: "og:description",
+        content: "Software development, design and digital experiences built in Johannesburg.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -83,7 +90,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

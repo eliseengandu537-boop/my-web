@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Nav } from "./Nav";
+import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
+import { Nav } from "./Nav";
 
 export function Page({
   title,
@@ -14,54 +15,63 @@ export function Page({
   dark?: boolean;
 }) {
   return (
-    <div className={`${dark ? "dark " : ""}relative min-h-screen bg-background text-foreground`}>
+    <div
+      className={`${dark ? "dark " : ""}relative min-h-screen overflow-hidden bg-background text-foreground`}
+    >
       <Nav />
 
-      {/* Ambient neon background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-40" />
-        <div className="absolute inset-0 [background:var(--gradient-radial)]" />
-        <div className="absolute -top-40 left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full blur-[140px] opacity-30 [background:radial-gradient(circle,var(--primary),transparent_70%)]" />
-        <div className="absolute bottom-0 right-0 h-[420px] w-[520px] translate-x-1/4 translate-y-1/4 rounded-full blur-[150px] opacity-20 [background:radial-gradient(circle,var(--primary-glow),transparent_70%)]" />
-      </div>
+      <main className="relative mx-auto max-w-[1600px] px-5 pb-28 pt-36 md:px-10 md:pt-44">
+        <div className="pointer-events-none absolute inset-y-0 left-5 right-5 -z-10 border-x border-ink/10 md:left-10 md:right-10" />
 
-      <main className="max-w-7xl mx-auto px-6 pt-32 pb-24">
-        {eyebrow && (
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-semibold"
-          >
-            {eyebrow}
-          </motion.p>
-        )}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className={`text-5xl md:text-7xl font-bold tracking-tight mb-4 ${dark ? "neon-text" : ""}`}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="border-b border-ink pb-10 md:pb-14"
         >
-          {title}
-        </motion.h1>
+          <div className="mb-6 flex items-center justify-between gap-6">
+            {eyebrow && <p className="eyebrow">{eyebrow.replace("// ", "")}</p>}
+            <p className="hidden text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground sm:block">
+              Creative developer · Johannesburg
+            </p>
+          </div>
+          <h1 className="max-w-[1320px] font-display text-[clamp(4rem,10vw,9.5rem)] uppercase leading-[0.96] tracking-[-0.012em]">
+            {title}
+          </h1>
+        </motion.div>
+
         <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="origin-left h-px w-28 neon-line mb-12"
-        />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          className="pt-12 md:pt-16"
         >
           {children}
         </motion.div>
       </main>
 
-      <footer className="border-t border-border">
-        <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Mr Ngandu Software Developer & Designer.</p>
-          <p className="text-xs">+27 74 706 7226 · eliseeweb@gmail.com</p>
+      <footer className="bg-ink text-paper">
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-8 px-5 py-10 md:flex-row md:items-end md:justify-between md:px-10">
+          <div>
+            <p className="font-display text-4xl uppercase leading-none">
+              Mr Ngandu<span className="text-flare">.</span>
+            </p>
+            <p className="mt-3 text-xs text-paper/50">Software development · Design · Marketing</p>
+          </div>
+          <div className="flex flex-col items-start gap-3 text-xs uppercase tracking-[0.16em] sm:flex-row sm:items-center sm:gap-8">
+            <a className="transition-colors hover:text-acid" href="mailto:eliseeweb@gmail.com">
+              Email me
+            </a>
+            <a
+              className="inline-flex items-center gap-1 transition-colors hover:text-acid"
+              href="https://wa.me/27747067226"
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp <ArrowUpRight size={13} />
+            </a>
+            <span className="text-paper/35">© {new Date().getFullYear()}</span>
+          </div>
         </div>
       </footer>
     </div>
