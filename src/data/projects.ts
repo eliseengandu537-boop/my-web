@@ -109,7 +109,7 @@ export const projects: Project[] = [
     desc: "Brochures, posters, social assets and campaign materials with cohesive brand messaging.",
     image: marketingImg,
     accent: "from-primary to-primary-glow",
-    role: "Designer & Marketer",
+    role: "Designer & Digital Marketer",
     year: "2023",
     tech: ["Photoshop", "Illustrator", "Canva", "InDesign"],
     challenge: "Campaigns needed unified visuals across digital and print.",

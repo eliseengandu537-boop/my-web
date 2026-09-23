@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AnimatePresence,
   motion,
-  useMotionValue,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -19,18 +18,17 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/Nav";
-import portrait from "@/assets/portrait.jpg";
 import { projects } from "@/data/projects";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Mr Ngandu — Creative Developer & Designer" },
+      { title: "Mr Ngandu — Software Developer, Graphic Designer & Digital Marketer" },
       {
         name: "description",
         content:
-          "Mr Ngandu builds expressive websites, useful software and brands that help businesses move forward.",
+          "Mr Ngandu brings software development, graphic design and digital marketing together to build memorable digital experiences.",
       },
     ],
   }),
@@ -39,7 +37,7 @@ export const Route = createFileRoute("/")({
 const services = [
   {
     number: "01",
-    title: "Creative development",
+    title: "Software development",
     copy: "Expressive, fast web experiences built with React, TypeScript, Node.js and a sharp eye for interaction.",
     Icon: Code2,
   },
@@ -57,7 +55,7 @@ const services = [
   },
   {
     number: "04",
-    title: "Digital growth",
+    title: "Digital marketing & growth",
     copy: "Campaign thinking, content and conversion-minded design that connects creative work to real business goals.",
     Icon: Megaphone,
   },
@@ -111,14 +109,14 @@ function IntroLoader() {
         <motion.div
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
-          transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[100] grid place-items-center bg-ink text-paper"
         >
           <AnimatePresence mode="wait">
             {phase === "loading" ? (
               <motion.div
                 key="loading"
-                exit={{ opacity: 0, scale: 0.8, filter: "blur(12px)" }}
+                exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
                 className="text-center"
               >
                 <div
@@ -138,8 +136,9 @@ function IntroLoader() {
             ) : (
               <motion.p
                 key="hello"
-                initial={{ opacity: 0, scale: 0.75, rotate: -8, filter: "blur(12px)" }}
-                animate={{ opacity: 1, scale: 1, rotate: -4, filter: "blur(0px)" }}
+                initial={{ opacity: 0, scale: 0.94, rotate: -2, filter: "blur(4px)" }}
+                animate={{ opacity: 1, scale: 1, rotate: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                 className="font-serif text-6xl italic text-acid md:text-8xl"
               >
                 hello.
@@ -152,70 +151,32 @@ function IntroLoader() {
   );
 }
 
-function CreativeCursor() {
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const smoothX = useSpring(x, { stiffness: 520, damping: 34, mass: 0.28 });
-  const smoothY = useSpring(y, { stiffness: 520, damping: 34, mass: 0.28 });
-  const [active, setActive] = useState(false);
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const finePointer = window.matchMedia("(pointer: fine)");
-    setEnabled(finePointer.matches);
-    if (!finePointer.matches) return;
-
-    const move = (event: PointerEvent) => {
-      x.set(event.clientX);
-      y.set(event.clientY);
-      setActive(Boolean((event.target as HTMLElement | null)?.closest("a, button, [data-cursor]")));
-    };
-
-    const leave = () => {
-      x.set(-100);
-      y.set(-100);
-      setActive(false);
-    };
-
-    window.addEventListener("pointermove", move);
-    document.documentElement.addEventListener("mouseleave", leave);
-    return () => {
-      window.removeEventListener("pointermove", move);
-      document.documentElement.removeEventListener("mouseleave", leave);
-    };
-  }, [x, y]);
-
-  if (!enabled) return null;
+function AnimatedWord({ word, revealOnView = false }: { word: string; revealOnView?: boolean }) {
+  const reduceMotion = useReducedMotion();
+  const reveal = { y: [18, -2, 0], scaleY: [0.98, 1.01, 1], opacity: 1, filter: "blur(0px)" };
 
   return (
-    <motion.div
-      aria-hidden="true"
-      animate={{ width: active ? 64 : 24, height: active ? 64 : 24 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      style={{ left: smoothX, top: smoothY }}
-      className="creative-cursor"
-    />
-  );
-}
-
-function AnimatedWord({ word }: { word: string }) {
-  return (
-    <span className="inline-flex" aria-label={word}>
+    <span className="fluid-text fluid-text-active inline-flex">
+      <span className="sr-only">{word}</span>
       {Array.from(word).map((letter, index) => (
         <motion.span
           aria-hidden="true"
           key={`${letter}-${index}`}
-          initial={{ y: 140, scaleY: 0.35, opacity: 0, filter: "blur(10px)" }}
-          animate={{ y: [140, -16, 0], scaleY: [0.35, 1.16, 1], opacity: 1, filter: "blur(0px)" }}
-          whileHover={{ y: -10, scaleY: 1.15, color: "#e9502e" }}
+          initial={reduceMotion ? false : { y: 18, scaleY: 0.98, opacity: 0, filter: "blur(4px)" }}
+          animate={!revealOnView && !reduceMotion ? reveal : undefined}
+          whileInView={revealOnView && !reduceMotion ? reveal : undefined}
+          viewport={revealOnView ? { once: true, amount: 0.5 } : undefined}
+          whileHover={reduceMotion ? undefined : { y: -2, scaleY: 1.01, color: "#e9502e" }}
           transition={{
-            duration: 0.9,
-            delay: 0.18 + index * 0.055,
+            duration: 0.75,
+            delay: 0.1 + index * 0.045,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="hero-letter inline-block origin-bottom"
         >
-          {letter}
+          <span className="fluid-letter" style={{ animationDelay: `${-index * 0.115}s` }}>
+            {letter}
+          </span>
         </motion.span>
       ))}
     </span>
@@ -229,16 +190,17 @@ function WorkSection() {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.35 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 72, damping: 30, mass: 0.4 });
   const trackX = useTransform(
     smoothProgress,
-    [0, 0.17, 0.91, 1],
+    [0, 0.3, 0.94, 1],
     ["0vw", "0vw", "-142vw", "-142vw"],
   );
-  const cardsY = useTransform(smoothProgress, [0, 0.16], ["68vh", "0vh"]);
-  const titleScale = useTransform(smoothProgress, [0, 0.22], [1, 0.62]);
-  const titleY = useTransform(smoothProgress, [0, 0.22], ["0vh", "-31vh"]);
-  const titleOpacity = useTransform(smoothProgress, [0.1, 0.28], [1, 0.12]);
+  const cardsY = useTransform(smoothProgress, [0, 0.17, 0.3], ["45vh", "45vh", "0vh"]);
+  const cardsOpacity = useTransform(smoothProgress, [0, 0.17, 0.27], [0, 0, 1]);
+  const titleScale = useTransform(smoothProgress, [0, 0.17], [1, 0.94]);
+  const titleY = useTransform(smoothProgress, [0, 0.17], ["0vh", "-6vh"]);
+  const titleOpacity = useTransform(smoothProgress, [0, 0.08, 0.17], [1, 1, 0]);
 
   return (
     <>
@@ -257,15 +219,15 @@ function WorkSection() {
 
           <motion.h2
             style={
-              reduceMotion ? undefined : { scale: titleScale, y: titleY, opacity: titleOpacity }
+              reduceMotion ? { opacity: 0 } : { scale: titleScale, y: titleY, opacity: titleOpacity }
             }
-            className="pointer-events-none absolute inset-x-0 top-[29vh] origin-center text-center font-display text-[22vw] uppercase leading-[0.84] tracking-[-0.018em]"
+            className="pointer-events-none absolute inset-x-0 top-[29vh] origin-center text-center font-display text-[22vw] uppercase leading-[1.05] tracking-[-0.018em]"
           >
-            Work
+            <AnimatedWord word="Work" revealOnView />
           </motion.h2>
 
           <motion.div
-            style={reduceMotion ? undefined : { x: trackX, y: cardsY }}
+            style={reduceMotion ? undefined : { x: trackX, y: cardsY, opacity: cardsOpacity }}
             className="absolute left-[8vw] top-[25vh] z-10 flex w-max gap-[6vw]"
           >
             {featuredProjects.map((project, index) => (
@@ -284,8 +246,8 @@ function WorkSection() {
                     alt={project.title}
                     loading="lazy"
                     className="h-full w-full object-cover"
-                    whileHover={{ scale: 1.06 }}
-                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    whileHover={{ scale: 1.035 }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                   />
                   <span className="absolute left-5 top-5 bg-ink px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-paper">
                     Project / 0{index + 1}
@@ -334,18 +296,18 @@ function WorkSection() {
       <section className="bg-paper px-5 py-24 text-ink lg:hidden">
         <div className="mb-14 border-b border-ink pb-7">
           <p className="eyebrow mb-6">Selected projects</p>
-          <h2 className="font-display text-[26vw] uppercase leading-[0.88] tracking-[-0.015em]">
-            Work
+          <h2 className="font-display text-[26vw] uppercase leading-[1.05] tracking-[-0.015em]">
+            <AnimatedWord word="Work" revealOnView />
           </h2>
         </div>
         <div className="space-y-20">
           {featuredProjects.map((project, index) => (
             <motion.article
               key={project.slug}
-              initial={{ opacity: 0, y: 70, rotate: index % 2 ? 2 : -2 }}
-              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.85, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
                 to="/projects/$slug"
@@ -357,9 +319,9 @@ function WorkSection() {
                   alt={project.title}
                   loading="lazy"
                   className="aspect-[16/10] w-full object-cover"
-                  whileInView={{ scale: [1.12, 1] }}
+                  whileInView={{ scale: [1.06, 1] }}
                   viewport={{ once: true }}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
                 />
                 <span className="absolute left-4 top-4 bg-ink px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-paper">
                   Project / 0{index + 1}
@@ -388,24 +350,16 @@ function WorkSection() {
 
 function Index() {
   const heroRef = useRef<HTMLElement>(null);
-  const aboutRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const pageProgress = useSpring(scrollYProgress, { stiffness: 110, damping: 28, mass: 0.35 });
+  const pageProgress = useSpring(scrollYProgress, { stiffness: 72, damping: 30, mass: 0.4 });
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const { scrollYProgress: aboutProgress } = useScroll({
-    target: aboutRef,
-    offset: ["start end", "end start"],
-  });
-  const heroY = useTransform(heroProgress, [0, 1], ["0%", "-34%"]);
-  const heroScale = useTransform(heroProgress, [0, 1], [1, 0.78]);
-  const heroOpacity = useTransform(heroProgress, [0.55, 1], [1, 0]);
-  const portraitY = useTransform(aboutProgress, [0, 1], ["12%", "-12%"]);
-  const portraitRotate = useTransform(aboutProgress, [0, 0.5, 1], [-3, 0, 3]);
-  const aboutCopyY = useTransform(aboutProgress, [0, 1], ["8%", "-7%"]);
+  const heroY = useTransform(heroProgress, [0, 1], ["0%", "-12%"]);
+  const heroScale = useTransform(heroProgress, [0, 1], [1, 0.94]);
+  const heroOpacity = useTransform(heroProgress, [0.65, 1], [1, 0]);
 
   const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -424,7 +378,6 @@ function Index() {
   return (
     <div className="min-h-screen bg-paper text-ink">
       <IntroLoader />
-      <CreativeCursor />
       <motion.div
         aria-hidden="true"
         style={{ scaleX: pageProgress }}
@@ -455,40 +408,40 @@ function Index() {
               style={
                 reduceMotion ? undefined : { y: heroY, scale: heroScale, opacity: heroOpacity }
               }
-              className="relative w-full min-w-0 py-10 text-center will-change-transform md:py-2"
+              className="relative w-full min-w-0 py-8 text-center will-change-transform md:py-2"
             >
               <motion.span
-                animate={{ y: [0, -18, 0], rotate: [12, -6, 12] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ y: [0, -8, 0], rotate: [4, -2, 4] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute left-[9%] top-[8%] hidden size-14 bg-flare md:block"
               />
               <motion.span
-                animate={{ y: [0, 22, 0], x: [0, -12, 0], scale: [1, 0.82, 1] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ y: [0, 10, 0], x: [0, -5, 0], scale: [1, 0.96, 1] }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute right-[12%] top-[8%] hidden size-12 rounded-full bg-acid md:block"
               />
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.6 }}
+                transition={{ delay: 0.1, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
               >
                 <p className="mb-2 text-[10px] font-extrabold uppercase tracking-[0.38em] md:text-xs">
                   Portfolio / Twenty twenty-six
                 </p>
-                <h1 className="overflow-hidden font-display text-[16vw] uppercase leading-[0.88] tracking-[-0.015em] md:text-[18.5vw]">
+                <h1 className="font-display text-[16vw] uppercase leading-[1.05] tracking-[-0.015em] md:text-[18.5vw]">
                   <AnimatedWord word="Creative" />
                 </h1>
-                <div className="mt-6 flex items-center justify-center gap-4 md:mt-9 md:gap-8">
+                <div className="mt-4 flex items-center justify-center gap-4 md:mt-6 md:gap-8">
                   <motion.span
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.75, duration: 0.7 }}
+                    transition={{ delay: 0.65, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
                     className="h-px w-10 origin-right bg-ink md:w-28"
                   />
                   <motion.p
-                    initial={{ opacity: 0, y: 35, scaleY: 0.5 }}
+                    initial={{ opacity: 0, y: 14, scaleY: 0.98 }}
                     animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                    transition={{ delay: 0.58, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ delay: 0.54, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
                     className="origin-bottom font-display text-[clamp(2.2rem,5.5vw,5.5rem)] uppercase leading-[1.05] tracking-[0.01em]"
                   >
                     Developer
@@ -496,23 +449,23 @@ function Index() {
                   <motion.span
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.75, duration: 0.7 }}
+                    transition={{ delay: 0.65, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
                     className="h-px w-10 origin-left bg-ink md:w-28"
                   />
                 </div>
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.88, duration: 0.7 }}
-                  className="mx-auto mt-10 w-[calc(100vw-2.5rem)] max-w-md px-3 text-sm font-medium leading-relaxed text-ink/62 md:w-auto md:text-base"
+                  transition={{ delay: 0.82, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                  className="mx-auto mt-7 w-[calc(100vw-2.5rem)] max-w-md px-3 text-sm font-medium leading-relaxed text-ink/62 md:mt-8 md:w-auto md:text-base"
                 >
-                  I turn ambitious ideas into digital products people remember and businesses can
-                  use.
+                  I combine software development, graphic design and digital marketing to build
+                  experiences people remember.
                 </motion.p>
               </motion.div>
             </motion.div>
 
-            <div className="flex items-end justify-between gap-6 border-t border-ink pt-5">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-4 border-t border-ink pt-5 md:gap-6">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/45">
                   Built by
@@ -526,17 +479,19 @@ function Index() {
                 aria-label="Scroll to about"
               >
                 <motion.span
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <ArrowDown className="transition-transform group-hover:translate-y-1" size={21} />
                 </motion.span>
               </a>
-              <div className="hidden text-right sm:block">
+              <div className="hidden justify-self-end text-right sm:block">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink/45">
                   Disciplines
                 </p>
-                <p className="mt-1 text-sm font-extrabold uppercase">Code · Design · Growth</p>
+                <p className="mt-1 text-sm font-extrabold uppercase">
+                  Software · Graphic design · Digital marketing
+                </p>
               </div>
             </div>
           </div>
@@ -567,82 +522,38 @@ function Index() {
         </section>
 
         <section
-          ref={aboutRef}
           id="about"
-          className="dark relative overflow-hidden bg-ink px-5 py-24 text-paper md:px-10 md:py-36"
+          className="dark relative overflow-hidden bg-ink px-5 py-14 text-paper md:px-10 md:py-20"
         >
           <div className="mx-auto max-w-[1500px]">
-            <div className="mb-14 flex items-center justify-between border-b border-paper/20 pb-5">
+            <div className="mb-8 flex items-center justify-between border-b border-paper/20 pb-5">
               <p className="eyebrow">About me</p>
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-paper/45">
                 01 / Story
               </p>
             </div>
 
-            <div className="grid items-center gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
-              <motion.div
-                initial={{ clipPath: "inset(100% 0 0 0)" }}
-                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-                className="relative mx-auto max-w-md lg:mx-0"
-              >
-                <motion.div
-                  style={reduceMotion ? undefined : { y: portraitY, rotate: portraitRotate }}
-                >
-                  <div className="absolute -left-4 -top-4 h-full w-full border border-acid" />
-                  <img
-                    src={portrait}
-                    alt="Mr Ngandu at work"
-                    width={694}
-                    height={868}
-                    className="relative aspect-[4/5] w-full object-cover grayscale transition duration-700 hover:grayscale-0"
-                  />
-                  <motion.div
-                    animate={{ y: [0, -9, 0] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -bottom-6 -right-4 bg-acid px-5 py-4 text-ink"
-                  >
-                    <p className="font-display text-3xl uppercase leading-none">6+ years</p>
-                    <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.18em]">
-                      Making digital things
-                    </p>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-[1300px] font-display text-[clamp(3rem,7vw,8.5rem)] uppercase leading-[1.03] tracking-[-0.008em]"
+            >
+              I build digital worlds where{" "}
+              <span className="text-acid">code, design & digital marketing meet.</span>
+            </motion.h2>
 
-              <motion.div style={reduceMotion ? undefined : { y: aboutCopyY }}>
-                <motion.h2
-                  initial={{ clipPath: "inset(0 100% 0 0)", filter: "blur(10px)" }}
-                  whileInView={{ clipPath: "inset(0 0% 0 0)", filter: "blur(0px)" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-                  className="font-display text-[clamp(3.5rem,6.5vw,7.5rem)] uppercase leading-[1.01] tracking-[-0.008em]"
-                >
-                  I build digital worlds where <span className="text-acid">design meets code.</span>
-                </motion.h2>
-                <div className="mt-14 grid gap-8 border-t border-paper/20 pt-9 md:grid-cols-2">
-                  <p className="text-lg leading-relaxed text-paper/75">
-                    I'm Mr Ngandu, a software developer, graphic designer and marketer from DR
-                    Congo, now creating from South Africa.
-                  </p>
-                  <div>
-                    <p className="leading-relaxed text-paper/55">
-                      From custom CRM systems to expressive brand experiences, I combine technical
-                      thinking with a designer's instinct for clarity and character.
-                    </p>
-                    <Link
-                      to="/about"
-                      className="mt-7 inline-flex items-center gap-3 border-b border-paper pb-1 text-xs font-bold uppercase tracking-[0.16em] transition-colors hover:border-acid hover:text-acid"
-                    >
-                      More about me <ArrowUpRight size={15} />
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
+            <div className="mt-8 flex justify-end">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-3 border-b border-paper/60 pb-2 text-xs font-bold uppercase tracking-[0.16em] transition-colors hover:border-acid hover:text-acid"
+              >
+                More about me <ArrowUpRight size={16} />
+              </Link>
             </div>
 
-            <div className="mt-24 grid border-y border-paper/20 sm:grid-cols-3">
+            <div className="mt-10 grid border-y border-paper/20 sm:grid-cols-3">
               {[
                 ["40+", "Projects shipped"],
                 ["12", "Long-term clients"],
@@ -650,10 +561,10 @@ function Index() {
               ].map(([value, label], index) => (
                 <motion.div
                   key={label}
-                  initial={{ opacity: 0, y: 45 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.12, duration: 0.65 }}
+                  transition={{ delay: index * 0.08, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
                   className={`py-8 sm:px-8 ${index > 0 ? "border-t border-paper/20 sm:border-l sm:border-t-0" : ""}`}
                 >
                   <p className="font-display text-6xl text-acid md:text-8xl">{value}</p>
@@ -672,10 +583,10 @@ function Index() {
               <div className="lg:sticky lg:top-32 lg:self-start">
                 <p className="eyebrow">What I do</p>
                 <motion.h2
-                  initial={{ opacity: 0, x: -90, skewX: 8 }}
-                  whileInView={{ opacity: 1, x: 0, skewX: 0 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                   className="mt-10 font-display text-[clamp(4.1rem,8vw,8rem)] uppercase leading-[0.95] tracking-[-0.012em]"
                 >
                   My
@@ -692,10 +603,10 @@ function Index() {
                 {services.map(({ number, title, copy, Icon }, index) => (
                   <motion.div
                     key={number}
-                    initial={{ opacity: 0, x: index % 2 ? 85 : -85 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.72, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.85, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
                     className="group grid gap-5 border-b border-paper/25 py-8 md:grid-cols-[48px_1fr_1fr_48px] md:items-center"
                   >
                     <span className="text-xs text-paper/35">/{number}</span>
@@ -726,17 +637,17 @@ function Index() {
           <div className="relative mx-auto max-w-[1500px]">
             <div className="grid gap-16 lg:grid-cols-[1fr_0.7fr] lg:gap-24">
               <motion.div
-                initial={{ opacity: 0, x: -70 }}
+                initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               >
                 <p className="eyebrow">Start something</p>
                 <motion.h2
-                  initial={{ clipPath: "inset(0 0 100% 0)", y: 70 }}
-                  whileInView={{ clipPath: "inset(0 0 0% 0)", y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
                   className="mt-10 font-display text-[clamp(4.4rem,8.5vw,9.5rem)] uppercase leading-[0.95] tracking-[-0.012em]"
                 >
                   Let's create
@@ -766,6 +677,14 @@ function Index() {
                   </a>
                   <a
                     className="border-b border-paper/35 pb-1 hover:border-acid hover:text-acid"
+                    href="https://www.linkedin.com/in/elisee-ngandu-79b4a9419/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    className="border-b border-paper/35 pb-1 hover:border-acid hover:text-acid"
                     href="/resume.pdf"
                     download
                   >
@@ -775,10 +694,10 @@ function Index() {
               </motion.div>
 
               <motion.form
-                initial={{ opacity: 0, x: 70 }}
+                initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
                 onSubmit={sendMessage}
                 className="border-t border-paper/25 pt-2"
               >

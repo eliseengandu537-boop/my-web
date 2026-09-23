@@ -1,4 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MotionConfig } from "framer-motion";
+import { FluidPointer } from "@/components/FluidPointer";
 import {
   Outlet,
   Link,
@@ -72,16 +74,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mr Ngandu — Creative Developer & Designer" },
+      { title: "Mr Ngandu — Software Developer, Graphic Designer & Digital Marketer" },
       {
         name: "description",
         content:
-          "Portfolio of Mr Ngandu — a creative developer, designer and marketer building memorable digital products.",
+          "Portfolio of Mr Ngandu — software developer, graphic designer and digital marketer building memorable digital products.",
       },
-      { property: "og:title", content: "Mr Ngandu — Creative Developer" },
+      { property: "og:title", content: "Mr Ngandu — Developer, Designer & Digital Marketer" },
       {
         property: "og:description",
-        content: "Software development, design and digital experiences built in Johannesburg.",
+        content: "Software development, graphic design and digital marketing from Johannesburg.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -121,7 +123,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <MotionConfig reducedMotion="user">
+        <FluidPointer />
+        <Outlet />
+      </MotionConfig>
     </QueryClientProvider>
   );
 }

@@ -148,15 +148,15 @@
 
   .glow-hover {
     transition:
-      box-shadow 0.35s ease,
-      transform 0.35s ease,
-      border-color 0.35s ease;
+      box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .glow-hover:hover {
     border-color: #10100f;
-    box-shadow: 10px 10px 0 #10100f;
-    transform: translate(-4px, -4px);
+    box-shadow: 0 16px 32px rgb(16 16 15 / 12%);
+    transform: translateY(-2px);
   }
 
   .neon-text {
@@ -203,9 +203,41 @@
   will-change: left, top, width, height;
 }
 
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .fluid-pointer-target {
+    will-change: translate;
+  }
+}
+
 .hero-letter {
   cursor: default;
   will-change: transform, filter;
+}
+
+/* A phased, transform-only wave: no hover or pointer is needed on touch devices. */
+.fluid-letter {
+  display: inline-block;
+  transform-origin: 50% 80%;
+}
+
+.fluid-text-active .fluid-letter {
+  animation: fluid-wave 5.4s ease-in-out infinite;
+}
+
+@keyframes fluid-wave {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scaleY(1);
+  }
+  24% {
+    transform: translate3d(0.005em, -0.03em, 0) rotate(-0.45deg) scaleY(1.008);
+  }
+  50% {
+    transform: translate3d(-0.005em, 0.01em, 0) rotate(0.3deg) scaleY(0.995);
+  }
+  76% {
+    transform: translate3d(0.004em, -0.015em, 0) rotate(0.2deg) scaleY(1.004);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -223,7 +255,7 @@
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: color 180ms ease;
+  transition: color 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav-link::after {
@@ -236,7 +268,7 @@
   content: "";
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 220ms ease;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav-link:hover,
@@ -291,7 +323,7 @@
 
 .marquee-track {
   width: max-content;
-  animation: marquee 24s linear infinite;
+  animation: marquee 34s linear infinite;
 }
 
 @keyframes marquee {
@@ -325,5 +357,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  .fluid-text-active .fluid-letter {
+    animation: none;
   }
 }

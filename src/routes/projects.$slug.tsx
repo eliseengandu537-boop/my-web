@@ -45,8 +45,9 @@ function ProjectDetail() {
       </Link>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         className="rounded-2xl overflow-hidden border border-border glow mb-12"
       >
         <img src={project.image} alt={project.title} width={1024} height={640} className="w-full h-auto" />
@@ -121,10 +122,10 @@ function ProjectDetail() {
                 href={g.src}
                 target="_blank"
                 rel="noreferrer"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.04 }}
+                transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="group rounded-2xl overflow-hidden border border-border glass glow-hover block"
               >
                 <div className="aspect-[4/3] overflow-hidden">
@@ -132,7 +133,7 @@ function ProjectDetail() {
                     src={g.src}
                     alt={g.caption}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                 </div>
                 <p className="p-3 text-sm text-muted-foreground">{g.caption}</p>

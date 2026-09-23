@@ -26,9 +26,9 @@ export function Nav() {
   return (
     <>
       <motion.header
-        initial={{ y: -80 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         className="editorial-nav fixed inset-x-0 top-0 z-50"
       >
         <nav className="mx-auto flex h-[76px] max-w-[1600px] items-center justify-between px-5 md:px-10">
@@ -77,11 +77,11 @@ export function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 flex flex-col bg-ink px-6 pb-10 pt-28 text-paper lg:hidden"
+            initial={{ clipPath: "inset(0 0 12% 0)", opacity: 0, y: -12 }}
+            animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1, y: 0 }}
+            exit={{ clipPath: "inset(0 0 12% 0)", opacity: 0, y: -8 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-ink px-6 pb-10 pt-28 text-paper lg:hidden"
           >
             <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.28em] text-paper/45">
               Navigation / 05

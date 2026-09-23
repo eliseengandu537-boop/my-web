@@ -7,7 +7,7 @@ export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
       { title: "Skills — Mr Ngandu" },
-      { name: "description", content: "Skills across web development, CRM systems, DevOps, graphic design and marketing." },
+      { name: "description", content: "Skills across web development, CRM systems, DevOps, graphic design and digital marketing." },
     ],
   }),
 });
@@ -26,7 +26,7 @@ const groups = [
     items: ["Docker", "AWS", "CI/CD", "GitHub Actions", "Linux", "Nginx"],
   },
   {
-    title: "Design & Marketing",
+    title: "Design & Digital Marketing",
     items: ["Graphic Design", "Branding", "UI Layouts", "Photoshop", "Illustrator", "Digital Marketing"],
   },
 ];
@@ -38,13 +38,13 @@ function Skills() {
         {groups.map((g, gi) => (
           <motion.div
             key={g.title}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: gi * 0.08 }}
+            transition={{ duration: 0.85, delay: gi * 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="p-8 rounded-2xl border border-border bg-card perspective-1000 group"
           >
-            <div className="preserve-3d transition-transform duration-500 group-hover:[transform:rotateX(4deg)_rotateY(-4deg)]">
+            <div className="preserve-3d transition-transform duration-700 ease-out group-hover:[transform:rotateX(2deg)_rotateY(-2deg)]">
               <h3 className="text-sm uppercase tracking-widest text-primary mb-6 font-semibold">{g.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {g.items.map((s) => (

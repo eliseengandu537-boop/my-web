@@ -108,10 +108,10 @@ function Experience() {
           {jobs.map((j, i) => (
             <motion.div
               key={j.company}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
               className={`relative md:grid md:grid-cols-2 md:gap-12 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`}
             >
               <div className={`pl-8 md:pl-0 ${i % 2 ? "md:text-left" : "md:text-right"}`}>

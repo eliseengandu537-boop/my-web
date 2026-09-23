@@ -27,16 +27,16 @@ function Projects() {
         {projects.map((p, i) => (
           <motion.div
             key={p.slug}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.06 }}
+            transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
             className="group perspective-1000"
           >
             <Link
               to="/projects/$slug"
               params={{ slug: p.slug }}
-              className="flex h-full flex-col relative rounded-2xl border border-border glass glow-hover overflow-hidden preserve-3d transition-transform duration-500 group-hover:[transform:rotateX(4deg)_rotateY(-4deg)]"
+              className="flex h-full flex-col relative rounded-2xl border border-border glass glow-hover overflow-hidden preserve-3d transition-transform duration-700 ease-out group-hover:[transform:rotateX(2deg)_rotateY(-2deg)]"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                 <img
@@ -45,7 +45,7 @@ function Projects() {
                   loading="lazy"
                   width={1024}
                   height={640}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-tr ${p.accent} opacity-20 mix-blend-overlay`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
@@ -86,10 +86,10 @@ function Projects() {
                 href={site.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
+                transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="group flex h-full flex-col rounded-2xl border border-border glass glow-hover overflow-hidden"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-muted">
@@ -97,7 +97,7 @@ function Projects() {
                     src={site.image}
                     alt={site.name}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
                 </div>

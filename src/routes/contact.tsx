@@ -89,7 +89,7 @@ function Contact() {
           <ContactRow Icon={Mail} label="Email" value="eliseeweb@gmail.com" href="mailto:eliseeweb@gmail.com" />
           <ContactRow Icon={MapPin} label="Based in" value="South Africa" />
           <ContactRow Icon={Github} label="GitHub" value="eliseengandu537-boop" href="https://github.com/eliseengandu537-boop" />
-          <ContactRow Icon={Linkedin} label="LinkedIn" value="/in/mrngandu" />
+          <ContactRow Icon={Linkedin} label="LinkedIn" value="elisee-ngandu-79b4a9419" href="https://www.linkedin.com/in/elisee-ngandu-79b4a9419/" />
 
           <div className="p-6 rounded-xl border border-primary bg-primary/5">
             <p className="text-xs text-primary uppercase tracking-widest font-semibold">Response time</p>
@@ -115,8 +115,8 @@ function Field({ label, ...props }: { label: string } & React.InputHTMLAttribute
 }
 
 function ContactRow({ Icon, label, value, href }: { Icon: React.ComponentType<{ size?: number }>; label: string; value: string; href?: string }) {
-  const Wrap: any = href ? "a" : "div";
-  const props: any = href ? { href, target: "_blank", rel: "noopener noreferrer" } : {};
+  const Wrap = href ? "a" : "div";
+  const props = href ? { href, target: "_blank", rel: "noopener noreferrer" } : {};
   return (
     <Wrap {...props} className="flex items-center gap-4 p-5 rounded-xl border border-border bg-card hover:border-primary transition-colors">
       <div className="w-10 h-10 grid place-items-center rounded-lg bg-primary/10 text-primary">

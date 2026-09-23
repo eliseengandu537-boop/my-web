@@ -9,7 +9,7 @@ export const Route = createFileRoute("/resume")({
   head: () => ({
     meta: [
       { title: "Resume — Mr Ngandu" },
-      { name: "description", content: "Download the latest resume of Mr Ngandu — Software Developer & Graphic Designer." },
+      { name: "description", content: "Download the latest resume of Mr Ngandu — software developer, graphic designer and digital marketer." },
     ],
   }),
 });
@@ -20,11 +20,12 @@ function Resume() {
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Download card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-1 p-8 rounded-2xl border border-border bg-card perspective-1000 group"
         >
-          <div className="preserve-3d transition-transform duration-500 group-hover:[transform:rotateX(6deg)_rotateY(-6deg)] space-y-6">
+          <div className="preserve-3d transition-transform duration-700 ease-out group-hover:[transform:rotateX(2deg)_rotateY(-2deg)] space-y-6">
             <div className="flex items-center gap-4">
               <img
                 src={portrait}
@@ -63,9 +64,9 @@ function Resume() {
 
         {/* Inline resume preview */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-2 p-8 rounded-2xl border border-border bg-card space-y-8"
         >
           <Section title="Summary">
@@ -73,7 +74,7 @@ function Resume() {
               Software Developer with experience building web applications and CRM systems. Skilled
               in JavaScript, Node.js, Docker, and AWS, with knowledge of frontend and backend
               development. Focused on creating efficient, scalable, and user-friendly software
-              solutions. Also a Graphic Designer & Marketing creative.
+              solutions. Also experienced in graphic design and digital marketing.
             </p>
           </Section>
 

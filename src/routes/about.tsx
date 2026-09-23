@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Mr Ngandu" },
-      { name: "description", content: "Software developer, graphic designer and marketer building scalable, user-friendly software solutions." },
+      { name: "description", content: "Software developer, graphic designer and digital marketer building scalable, user-friendly digital solutions." },
     ],
   }),
 });
@@ -22,13 +22,13 @@ function About() {
           {[about1, about2].map((src, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ duration: 0.85, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="perspective-1000 group"
             >
-              <div className="preserve-3d transition-transform duration-500 group-hover:[transform:rotateX(6deg)_rotateY(-6deg)]">
+              <div className="preserve-3d transition-transform duration-700 ease-out group-hover:[transform:rotateX(2deg)_rotateY(-2deg)]">
                 <img
                   src={src}
                   alt="Mr Ngandu portrait"
@@ -41,8 +41,8 @@ function About() {
 
         <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
           <p>
-            I'm <span className="text-foreground font-semibold">Mr Ngandu</span>  a Software
-            Developer, Graphic Designer and Marketer from DR Congo, currently based in South Africa.
+            I'm <span className="text-foreground font-semibold">Mr Ngandu</span>, a software
+            developer, graphic designer and digital marketer based in South Africa.
           </p>
           <p>
             I build web applications and CRM systems with JavaScript, Node.js, Docker and AWS, and I
@@ -58,7 +58,7 @@ function About() {
           <div className="grid sm:grid-cols-2 gap-4 pt-4">
             {[
               { label: "Location", value: "South Africa" },
-              { label: "Origin", value: "DRCongo" },
+              { label: "Focus", value: "Software · Graphic design · Digital marketing" },
               { label: "Stack", value: "JavaScript · Node.js · Python · WordPress · Next.js · Docker · AWS" },
               { label: "Speaks", value: "English · French" },
             ].map((row) => (
