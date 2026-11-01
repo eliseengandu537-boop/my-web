@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AnimatePresence,
   motion,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -70,12 +69,6 @@ function IntroLoader() {
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has("skipIntro")) {
-      setProgress(100);
-      setVisible(false);
-      return;
-    }
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setProgress(100);
       setVisible(false);
       return;
@@ -152,7 +145,6 @@ function IntroLoader() {
 }
 
 function AnimatedWord({ word, revealOnView = false }: { word: string; revealOnView?: boolean }) {
-  const reduceMotion = useReducedMotion();
   const reveal = { y: [18, -2, 0], scaleY: [0.98, 1.01, 1], opacity: 1, filter: "blur(0px)" };
 
   return (
@@ -162,11 +154,11 @@ function AnimatedWord({ word, revealOnView = false }: { word: string; revealOnVi
         <motion.span
           aria-hidden="true"
           key={`${letter}-${index}`}
-          initial={reduceMotion ? false : { y: 18, scaleY: 0.98, opacity: 0, filter: "blur(4px)" }}
-          animate={!revealOnView && !reduceMotion ? reveal : undefined}
-          whileInView={revealOnView && !reduceMotion ? reveal : undefined}
+          initial={{ y: 18, scaleY: 0.98, opacity: 0, filter: "blur(4px)" }}
+          animate={!revealOnView ? reveal : undefined}
+          whileInView={revealOnView ? reveal : undefined}
           viewport={revealOnView ? { once: true, amount: 0.5 } : undefined}
-          whileHover={reduceMotion ? undefined : { y: -2, scaleY: 1.01, color: "#e9502e" }}
+          whileHover={{ y: -2, scaleY: 1.01, color: "#e9502e" }}
           transition={{
             duration: 0.75,
             delay: 0.1 + index * 0.045,
@@ -185,7 +177,6 @@ function AnimatedWord({ word, revealOnView = false }: { word: string; revealOnVi
 
 function WorkSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -219,7 +210,7 @@ function WorkSection() {
 
           <motion.h2
             style={
-              reduceMotion ? { opacity: 0 } : { scale: titleScale, y: titleY, opacity: titleOpacity }
+              { scale: titleScale, y: titleY, opacity: titleOpacity }
             }
             className="pointer-events-none absolute inset-x-0 top-[29vh] origin-center text-center font-display text-[22vw] uppercase leading-[1.05] tracking-[-0.018em]"
           >
@@ -227,7 +218,7 @@ function WorkSection() {
           </motion.h2>
 
           <motion.div
-            style={reduceMotion ? undefined : { x: trackX, y: cardsY, opacity: cardsOpacity }}
+            style={{ x: trackX, y: cardsY, opacity: cardsOpacity }}
             className="absolute left-[8vw] top-[25vh] z-10 flex w-max gap-[6vw]"
           >
             {featuredProjects.map((project, index) => (
@@ -350,7 +341,6 @@ function WorkSection() {
 
 function Index() {
   const heroRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const pageProgress = useSpring(scrollYProgress, { stiffness: 72, damping: 30, mass: 0.4 });
   const { scrollYProgress: heroProgress } = useScroll({
@@ -405,9 +395,7 @@ function Index() {
             </div>
 
             <motion.div
-              style={
-                reduceMotion ? undefined : { y: heroY, scale: heroScale, opacity: heroOpacity }
-              }
+                style={{ y: heroY, scale: heroScale, opacity: heroOpacity }}
               className="relative w-full min-w-0 py-8 text-center will-change-transform md:py-2"
             >
               <motion.span

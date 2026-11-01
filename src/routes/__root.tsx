@@ -123,7 +123,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MotionConfig reducedMotion="user">
+      <MotionConfig reducedMotion="never">
         <FluidPointer />
         <Outlet />
       </MotionConfig>

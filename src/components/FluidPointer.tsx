@@ -13,8 +13,7 @@ export function FluidPointer() {
 
   useEffect(() => {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!finePointer.matches || reducedMotion.matches) return;
+    if (!finePointer.matches) return;
 
     setEnabled(true);
     let hovered: HTMLElement | null = null;
