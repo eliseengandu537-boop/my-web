@@ -150,7 +150,7 @@ export const getProject = (slug: string) => projects.find((p) => p.slug === slug
 
 /**
  * Live client websites — add the sites you built for clients here.
- * Each one shows a screenshot and a "Visit Website" button that opens the real site.
+ * Each one shows a locally hosted preview graphic and a "Visit Website" button that opens the real site.
  */
 export type ClientWebsite = {
   name: string;
@@ -163,62 +163,62 @@ export const clientWebsites: ClientWebsite[] = [
   {
     name: "DG-Property",
     url: "https://www.dg-property.co.za",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://www.dg-property.co.za/",
+    image: "/client-previews/dg-property.svg",
     description:
       "Property management company website, built and maintained with WordPress and custom code.",
   },
   {
     name: "Micrologistics",
     url: "https://micrologistics.co.za/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://micrologistics.co.za/",
+    image: "/client-previews/micrologistics.svg",
     description: "Business website designed and developed for Micrologistics.",
   },
   {
     name: "New Life United",
     url: "https://newlifeunited.co.za/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://newlifeunited.co.za/",
+    image: "/client-previews/new-life-united.svg",
     description: "Website designed and developed for New Life United.",
   },
   {
     name: "Thunder Brothers",
     url: "https://thunderbrothers.co.za/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://thunderbrothers.co.za/",
+    image: "/client-previews/thunder-brothers.svg",
     description: "Website designed and developed for Thunder Brothers.",
   },
   {
     name: "CTCPM Data Warehouse",
     url: "https://www.datawarehouse.ctcpm.cd/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://www.datawarehouse.ctcpm.cd/",
+    image: "/client-previews/ctcpm-data-warehouse.svg",
     description: "Data warehouse platform designed and developed for CTCPM.",
   },
   {
     name: "Lens Photo Studio",
     url: "https://lensphotostudio.co.za/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://lensphotostudio.co.za/",
+    image: "/client-previews/lens-photo-studio.svg",
     description: "Website designed and developed for Lens Photo Studio.",
   },
   {
     name: "DCB Spares",
     url: "https://www.dcbspares.co.za/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://www.dcbspares.co.za/",
+    image: "/client-previews/dcb-spares.svg",
     description: "Business website designed and developed for DCB Spares.",
   },
   {
     name: "Fedpump",
     url: "https://www.fedpump.com/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://www.fedpump.com/",
+    image: "/client-previews/fedpump.svg",
     description: "Business website designed and developed for Fedpump.",
   },
   {
     name: "Tagex",
     url: "https://tagex-eta.vercel.app/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://tagex-eta.vercel.app/",
+    image: "/client-previews/tagex.svg",
     description: "Website designed and developed for Tagex.",
   },
   {
     name: "ASAP Plumbing",
     url: "https://asap-plumbing-rouge.vercel.app/",
-    image: "https://image.thum.io/get/width/1200/crop/900/https://asap-plumbing-rouge.vercel.app/",
+    image: "/client-previews/asap-plumbing.svg",
     description: "Business website designed and developed for ASAP Plumbing.",
   },
 ];
