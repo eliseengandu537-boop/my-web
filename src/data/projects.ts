@@ -197,11 +197,28 @@ export const clientWebsites: ClientWebsite[] = [
     image: "https://image.thum.io/get/width/1200/crop/900/https://lensphotostudio.co.za/",
     description: "Website designed and developed for Lens Photo Studio.",
   },
-  // Add more client websites below, e.g.:
-  // {
-  //   name: "Client Name",
-  //   url: "https://clientsite.co.za",
-  //   image: someImportedImage,
-  //   description: "Short description of the website you built.",
-  // },
+  {
+    name: "DCB Spares",
+    url: "https://www.dcbspares.co.za/",
+    image: "https://image.thum.io/get/width/1200/crop/900/https://www.dcbspares.co.za/",
+    description: "Business website designed and developed for DCB Spares.",
+  },
+  {
+    name: "Fedpump",
+    url: "https://www.fedpump.com/",
+    image: "https://image.thum.io/get/width/1200/crop/900/https://www.fedpump.com/",
+    description: "Business website designed and developed for Fedpump.",
+  },
+  {
+    name: "Tagex",
+    url: "https://tagex-eta.vercel.app/",
+    image: "https://image.thum.io/get/width/1200/crop/900/https://tagex-eta.vercel.app/",
+    description: "Website designed and developed for Tagex.",
+  },
+  {
+    name: "ASAP Plumbing",
+    url: "https://asap-plumbing-rouge.vercel.app/",
+    image: "https://image.thum.io/get/width/1200/crop/900/https://asap-plumbing-rouge.vercel.app/",
+    description: "Business website designed and developed for ASAP Plumbing.",
+  },
 ];
