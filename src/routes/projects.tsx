@@ -1,122 +1,162 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Page } from "@/components/Page";
-import { motion } from "framer-motion";
-import { ArrowUpRight, ExternalLink, Globe } from "lucide-react";
 import { clientWebsites, projects } from "@/data/projects";
+import workCss from "../work.css?url";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
   head: () => ({
     meta: [
-      { title: "Projects — Mr Ngandu" },
-      { name: "description", content: "Selected projects: CRM systems, web apps, branding and marketing assets." },
+      { title: "Selected Work — Mr Ngandu" },
+      {
+        name: "description",
+        content: "Explore websites, brand identities, graphic design and software projects by Mr Ngandu.",
+      },
     ],
+    links: [{ rel: "stylesheet", href: workCss }],
   }),
 });
 
+const categories = ["All", "Websites", "Branding", "Graphic design", "Software"] as const;
+type Category = (typeof categories)[number];
+type WorkCategory = Exclude<Category, "All">;
+
+type WorkItem = {
+  id: string;
+  title: string;
+  category: WorkCategory;
+  image: string;
+  description: string;
+} & ({ kind: "website"; url: string } | { kind: "project"; slug: string });
+
+const projectCategories: Record<string, WorkCategory> = {
+  "crm-suite": "Software",
+  "tracking-reports": "Software",
+  "cloud-deployments": "Software",
+  "brand-identity": "Branding",
+  "marketing-campaign": "Graphic design",
+  "graphics-design": "Graphic design",
+};
+
+const workItems: WorkItem[] = [
+  ...clientWebsites.map((site): WorkItem => ({
+    id: site.url,
+    title: site.name,
+    category: "Websites",
+    image: site.image,
+    description: site.description,
+    kind: "website",
+    url: site.url,
+  })),
+  ...projects.map((project): WorkItem => ({
+    id: project.slug,
+    title: project.title,
+    category: projectCategories[project.slug] ?? "Software",
+    image: project.image,
+    description: project.desc,
+    kind: "project",
+    slug: project.slug,
+  })),
+];
+
+function WorkCard({ item, index }: { item: WorkItem; index: number }) {
+  const content = (
+    <>
+      <div className="work-visual">
+        <img
+          src={item.image}
+          alt={`${item.title} — ${item.category === "Websites" ? "website preview" : "project preview"}`}
+          width={1200}
+          height={800}
+          loading={index < 2 ? "eager" : "lazy"}
+          decoding="async"
+        />
+        <span className="work-card-action">
+          {item.kind === "website" ? "Visit website" : "View project"}
+          <ArrowUpRight size={18} aria-hidden="true" />
+          {item.kind === "website" && <span className="sr-only"> (opens in a new tab)</span>}
+        </span>
+      </div>
+      <div className="work-card-info">
+        <div>
+          <h2>{item.title}</h2>
+          <span className="work-category">{item.category === "Websites" ? "Web design & development" : item.category}</span>
+        </div>
+        <span className="work-arrow" aria-hidden="true"><ArrowUpRight size={23} /></span>
+      </div>
+      <p className="sr-only">{item.description}</p>
+    </>
+  );
+
+  return item.kind === "website" ? (
+    <a className="work-card" href={item.url} target="_blank" rel="noopener noreferrer">
+      {content}
+    </a>
+  ) : (
+    <Link className="work-card" to="/projects/$slug" params={{ slug: item.slug }}>
+      {content}
+    </Link>
+  );
+}
+
 function Projects() {
   const location = useLocation();
+  const [category, setCategory] = useState<Category>("All");
 
-  if (location.pathname !== "/projects") {
+  if (location.pathname.replace(/\/$/, "") !== "/projects") {
     return <Outlet />;
   }
 
+  const visibleItems = category === "All" ? workItems : workItems.filter((item) => item.category === category);
+
   return (
-    <Page eyebrow="// selected work" title="Things I'm proud to have shipped.">
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((p, i) => (
-          <motion.div
-            key={p.slug}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-            className="group perspective-1000"
-          >
-            <Link
-              to="/projects/$slug"
-              params={{ slug: p.slug }}
-              className="flex h-full flex-col relative rounded-2xl border border-border glass glow-hover overflow-hidden preserve-3d transition-transform duration-700 ease-out group-hover:[transform:rotateX(2deg)_rotateY(-2deg)]"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  width={1024}
-                  height={640}
-                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                />
-                <div className={`absolute inset-0 bg-gradient-to-tr ${p.accent} opacity-20 mix-blend-overlay`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
-                <span className="absolute left-4 top-4 text-xs font-mono text-primary/80">{String(i + 1).padStart(2, "0")}</span>
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <p className="text-xs uppercase tracking-widest text-primary font-semibold">{p.tag}</p>
-                <div className="mt-2 flex items-start justify-between gap-3">
-                  <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors">{p.title}</h3>
-                  <ArrowUpRight className="text-muted-foreground group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" size={20} />
-                </div>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-                <div className="mt-auto pt-4 flex flex-wrap gap-2">
-                  {p.tech.slice(0, 3).map((t) => (
-                    <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full border border-border bg-background/40 text-muted-foreground group-hover:border-primary/40 transition-colors">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
-
-      {clientWebsites.length > 0 && (
-        <section className="mt-24">
-          <div className="flex items-center gap-3 mb-2">
-            <Globe className="text-primary" size={20} />
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Live Client Websites</h2>
-          </div>
-          <p className="text-muted-foreground mb-8">Click to visit the live site.</p>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {clientWebsites.map((site, i) => (
-              <motion.a
-                key={site.url}
-                href={site.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="group flex h-full flex-col rounded-2xl border border-border glass glow-hover overflow-hidden"
+    <Page
+      dark
+      variant="work"
+      eyebrow="Our work"
+      title="Selected work."
+      intro="Websites, identities and digital tools. A collection of projects where thoughtful design meets practical development."
+    >
+      <section aria-label="Project gallery">
+        <div className="work-toolbar">
+          <div className="work-filters" role="group" aria-label="Filter projects by category">
+            {categories.map((name) => (
+              <button
+                key={name}
+                type="button"
+                className={`work-filter${category === name ? " is-active" : ""}`}
+                aria-pressed={category === name}
+                aria-controls="work-gallery"
+                onClick={() => setCategory(name)}
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                  <img
-                    src={site.image}
-                    alt={site.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors">{site.name}</h3>
-                    <ExternalLink className="text-muted-foreground group-hover:text-primary transition-colors shrink-0" size={18} />
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{site.description}</p>
-                  <span className="mt-auto pt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                    Visit Website
-                    <ArrowUpRight size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </div>
-              </motion.a>
+                {name}
+              </button>
             ))}
           </div>
-        </section>
-      )}
+          <p className="work-count" role="status" aria-live="polite" aria-atomic="true">
+            <span>{String(visibleItems.length).padStart(2, "0")}</span> {visibleItems.length === 1 ? "project" : "projects"}
+          </p>
+        </div>
+
+        <div id="work-gallery" className="work-grid">
+          {visibleItems.map((item, index) => <WorkCard key={item.id} item={item} index={index} />)}
+        </div>
+      </section>
+
+      <section className="work-cta" aria-labelledby="work-cta-title">
+        <p className="eyebrow">Something in mind?</p>
+        <div className="work-cta-content">
+          <h2 id="work-cta-title">Your next project<br />starts with a <span>hello.</span></h2>
+          <div className="work-cta-aside">
+            <p>Let's make something that works for your business and feels right for your audience.</p>
+            <Link to="/contact" className="work-contact-link">
+              Let's talk <span><ArrowRight size={20} aria-hidden="true" /></span>
+            </Link>
+          </div>
+        </div>
+      </section>
     </Page>
   );
 }

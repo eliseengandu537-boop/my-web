@@ -2,7 +2,7 @@ import { OrbitControls, Sparkles } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense, useRef, useState } from "react";
 import { AdditiveBlending, Color, DoubleSide, NormalBlending } from "three";
-import type { Group, Mesh } from "three";
+import type { Blending, Group, Mesh } from "three";
 
 type ParticleCloud = {
   colors: Float32Array;
@@ -154,7 +154,7 @@ function ParticleLayer({
   opacity,
   size,
 }: {
-  blending?: number;
+  blending?: Blending;
   cloud: ParticleCloud;
   opacity: number;
   size: number;

@@ -1,137 +1,154 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowDownRight, ArrowUpRight, Plus } from "lucide-react";
 import { Page } from "@/components/Page";
-import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/experience")({
   component: Experience,
   head: () => ({
     meta: [
-      { title: "Experience — Mr Ngandu" },
-      { name: "description", content: "Professional experience as a software developer and graphic designer." },
+      { title: "Journey & Services — Mr Ngandu" },
+      {
+        name: "description",
+        content:
+          "Explore branding, web design, development, custom software and digital marketing services by Mr Ngandu.",
+      },
     ],
   }),
 });
 
-const jobs = [
+const services = [
   {
-    role: "Software Developer",
-    company: "DG-Property",
-    location: "Johannesburg, South Africa",
-    period: "Current",
-    points: [
-      "Developed and maintained a CRM system for property management and broker operations.",
-      "Designed modules for broker tracking, management dashboards, financial tracking and workflow automation.",
-      "Integrated system functionality to improve operational efficiency and reporting.",
-      "Streamlined business process management across teams.",
-    ],
+    title: "Branding",
+    category: "Define your identity",
+    description:
+      "A clear visual identity that connects your business across every touchpoint.",
+    deliverables: ["Logo design", "Visual identity", "Brand guidelines"],
   },
   {
-    role: "Full-Stack Web Developer",
-    company: "Micrologistics",
-    location: "Randburg, Johannesburg",
-    period: "2023 to 2024",
-    points: [
-      "Built and shipped client web applications using React, Node.js and PostgreSQL.",
-      "Developed REST APIs and integrated third-party payment and CRM services.",
-      "Set up Docker-based environments and CI/CD pipelines for faster releases.",
-      "Worked directly with clients across Johannesburg to scope and deliver projects.",
-    ],
+    title: "Web design",
+    category: "Make a first impression",
+    description:
+      "Thoughtful interfaces that make your story clear and your website easy to explore.",
+    deliverables: ["UI/UX", "Responsive layouts", "Figma prototypes"],
   },
   {
-    role: "Software Developer",
-    company: "Kamu Support",
-    location: "Johannesburg, South Africa",
-    period: "2022 to 2023",
-    points: [
-      "Built web-based management solutions and CRM modules.",
-      "Developed tracking and reporting modules used across teams.",
-      "Improved workflow automation and reduced manual operations.",
-      "Managed system debugging, optimization and database integration.",
-      "Worked with Docker and AWS for deployment and dev environments.",
-    ],
+    title: "Graphic design",
+    category: "Bring your ideas to life",
+    description:
+      "Distinctive visuals for campaigns, everyday communication and the moments that matter.",
+    deliverables: ["Campaign graphics", "Print design", "Social content"],
   },
   {
-    role: "Web Developer & Designer",
-    company: "Joburg Creative Studio",
-    location: "Braamfontein, Johannesburg",
-    period: "2021 to 2022",
-    points: [
-      "Designed and developed responsive websites and landing pages for local businesses.",
-      "Created brand identities, UI layouts and marketing assets for campaigns.",
-      "Optimized sites for performance, SEO and mobile experience.",
-      "Collaborated with marketing teams to align design with business goals.",
-    ],
+    title: "Web development",
+    category: "Build the experience",
+    description:
+      "Responsive websites, built with care and supported beyond the initial launch.",
+    deliverables: ["React", "WordPress", "Website maintenance"],
   },
   {
-    role: "Graphic / Digital Designer",
-    company: "Takealot",
-    location: "Johannesburg, South Africa",
-    period: "Previous",
-    points: [
-      "Created digital assets, UI layouts and branding materials.",
-      "Designed for marketing campaigns and business platforms.",
-      "Collaborated with cross-functional teams to improve digital UX.",
-    ],
+    title: "Custom software",
+    category: "Make work flow",
+    description:
+      "Business tools that connect your data, simplify tasks and support your team.",
+    deliverables: ["CRM systems", "Dashboards", "Workflow automation"],
   },
   {
-    role: "Digital Marketing Manager",
-    company: "MMC",
-    location: "Braamfontein, Johannesburg",
-    period: "2022 to 2023",
-    points: [
-      "Planned and managed digital marketing campaigns across social media, email and web.",
-      "Grew brand reach and engagement through targeted content and paid ad strategies.",
-      "Analyzed campaign performance and optimized for conversions and ROI.",
-      "Coordinated design, content and ad creative for consistent brand messaging.",
-    ],
+    title: "Digital marketing",
+    category: "Reach your audience",
+    description:
+      "Connected content and paid campaigns shaped around your audience and business goals.",
+    deliverables: ["Google Ads", "Meta Ads", "Email campaigns"],
   },
   {
-    role: "Marketing & Social Media Specialist",
-    company: "Maboneng Brands",
-    location: "Maboneng, Johannesburg",
-    period: "2020 to 2021",
-    points: [
-      "Managed social media accounts and built content calendars for local brands.",
-      "Created promotional graphics, posters and campaign assets.",
-      "Ran community engagement and influencer outreach to grow audiences.",
-      "Tracked analytics and reported on growth, reach and engagement metrics.",
-    ],
+    title: "SEO",
+    category: "Be easier to find",
+    description:
+      "Practical improvements to website structure, content and performance for better discoverability.",
+    deliverables: ["Technical SEO", "Page optimisation", "Analytics"],
   },
 ];
 
 function Experience() {
   return (
-    <Page eyebrow="// timeline" title="Where I've shipped, designed and shaped systems.">
-      <div className="relative">
-        <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border" />
-        <div className="space-y-16">
-          {jobs.map((j, i) => (
-            <motion.div
-              key={j.company}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.85, delay: Math.min(i, 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative md:grid md:grid-cols-2 md:gap-12 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`}
-            >
-              <div className={`pl-8 md:pl-0 ${i % 2 ? "md:text-left" : "md:text-right"}`}>
-                <div className="absolute left-0 md:left-1/2 top-2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary glow" />
-                {j.period === "Current" && (
-                  <p className="text-xs tracking-widest text-primary uppercase font-semibold">Current</p>
-                )}
-                <h3 className="mt-2 text-2xl font-bold">{j.role}</h3>
-                <p className="text-muted-foreground">{j.company}</p>
-                <p className="text-sm text-muted-foreground/80">{j.location}</p>
+    <Page eyebrow="Journey / What I do" title="From idea to impact.">
+      <section aria-labelledby="services-heading">
+        <div className="mb-14 grid gap-6 md:mb-20 md:grid-cols-[1fr_1.35fr] md:gap-16">
+          <div>
+            <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
+              Design · Development · Growth
+            </p>
+            <h2 id="services-heading" className="max-w-lg text-3xl font-semibold leading-tight tracking-[-0.04em] md:text-5xl">
+              Good ideas deserve<br />
+              <span className="text-flare">thoughtful execution.</span>
+            </h2>
+          </div>
+          <div className="flex max-w-xl flex-col items-start justify-between gap-7 md:pt-8">
+            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+              I bring design, code and marketing together to help businesses take
+              their next step. Explore the services below to find the right place
+              to start.
+            </p>
+            <a href="#service-list" className="inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.16em] hover:text-flare">
+              Explore the services <ArrowDownRight size={18} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
+        <div id="service-list" className="scroll-mt-28 border-t border-ink">
+          {services.map((service, index) => (
+            <details key={service.title} className="group border-b border-ink/25" open={index === 0}>
+              <summary className="flex cursor-pointer list-none items-center gap-4 py-7 outline-offset-[-4px] transition-colors hover:text-flare focus-visible:outline-2 focus-visible:outline-flare md:gap-8 md:py-10 [&::-webkit-details-marker]:hidden">
+                <span className="self-start pt-1 text-xs font-semibold tabular-nums text-flare md:pt-3" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="min-w-0 flex-1 text-2xl font-semibold tracking-[-0.045em] sm:text-4xl md:text-5xl">
+                  {service.title}
+                </h3>
+                <span className="hidden text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground lg:block">
+                  {service.category}
+                </span>
+                <span className="grid size-10 shrink-0 place-items-center rounded-full border border-ink/30 transition-colors group-open:border-ink group-open:bg-ink group-open:text-paper md:ml-8 md:size-12">
+                  <Plus className="transition-transform duration-300 group-open:rotate-45 motion-reduce:transition-none" size={20} aria-hidden="true" />
+                </span>
+              </summary>
+              <div className="grid gap-7 pb-9 pl-8 md:grid-cols-[1.2fr_1fr] md:gap-16 md:pb-12 md:pl-12">
+                <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {service.description}
+                </p>
+                <ul className="flex flex-wrap items-start gap-x-6 gap-y-3 text-[11px] font-bold uppercase tracking-[0.1em]">
+                  {service.deliverables.map((deliverable) => (
+                    <li key={deliverable} className="inline-flex items-center gap-2">
+                      <span className="size-1.5 shrink-0 bg-flare" aria-hidden="true" />
+                      {deliverable}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className={`mt-4 md:mt-0 pl-8 md:pl-0 space-y-2 text-muted-foreground ${i % 2 ? "md:col-start-1 md:row-start-1 md:text-right" : ""}`}>
-                {j.points.map((p, pi) => (
-                  <li key={pi} className="leading-relaxed">{p}</li>
-                ))}
-              </ul>
-            </motion.div>
+            </details>
           ))}
         </div>
-      </div>
+      </section>
+
+      <section className="mt-20 grid gap-8 bg-ink p-7 text-paper sm:p-10 md:mt-28 md:grid-cols-[1.4fr_1fr] md:items-end md:p-16" aria-labelledby="journey-cta-heading">
+        <div>
+          <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.22em] text-paper/60">Your next chapter</p>
+          <h2 id="journey-cta-heading" className="font-display text-5xl uppercase leading-none md:text-7xl">
+            Have an idea?<br />
+            <span className="text-acid">Let's build it.</span>
+          </h2>
+        </div>
+        <div className="flex flex-col items-start gap-7 md:items-end">
+          <p className="max-w-sm text-sm leading-relaxed text-paper/70 md:text-right">
+            Tell me what you have in mind. We can work out the next step together.
+          </p>
+          <Link to="/contact" className="inline-flex items-center justify-between gap-10 bg-paper px-6 py-4 text-xs font-extrabold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-acid">
+            Start a conversation <ArrowUpRight size={20} aria-hidden="true" />
+          </Link>
+          <Link to="/projects" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] underline decoration-paper/40 underline-offset-4 transition-colors hover:text-acid">
+            Explore my work <ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
     </Page>
   );
 }

@@ -8,43 +8,48 @@ export function Page({
   eyebrow,
   children,
   dark = false,
+  variant = "default",
+  intro,
 }: {
   title: string;
   eyebrow?: string;
   children: ReactNode;
   dark?: boolean;
+  variant?: "default" | "work";
+  intro?: string;
 }) {
   return (
     <div
-      className={`${dark ? "dark " : ""}relative min-h-screen overflow-hidden bg-background text-foreground`}
+      className={`${dark ? "dark " : ""}${variant === "work" ? "work-page " : ""}relative min-h-screen overflow-hidden bg-background text-foreground`}
     >
       <Nav />
 
-      <main className="relative mx-auto max-w-[1600px] px-5 pb-28 pt-36 md:px-10 md:pt-44">
+      <main className="page-main relative mx-auto max-w-[1600px] px-5 pb-28 pt-36 md:px-10 md:pt-44">
         <div className="pointer-events-none absolute inset-y-0 left-5 right-5 -z-10 border-x border-ink/10 md:left-10 md:right-10" />
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className="border-b border-ink pb-10 md:pb-14"
+          className="page-heading border-b border-ink pb-10 md:pb-14"
         >
-          <div className="mb-6 flex items-center justify-between gap-6">
+          <div className="page-eyebrow-row mb-6 flex items-center justify-between gap-6">
             {eyebrow && <p className="eyebrow">{eyebrow.replace("// ", "")}</p>}
             <p className="hidden text-[10px] font-bold uppercase tracking-[0.24em] text-muted-foreground sm:block">
               Software developer · Graphic designer · Digital marketer
             </p>
           </div>
-          <h1 className="max-w-[1320px] font-display text-[clamp(4rem,10vw,9.5rem)] uppercase leading-[0.96] tracking-[-0.012em]">
+          <h1 className="page-title max-w-[1320px] font-display text-[clamp(4rem,10vw,9.5rem)] uppercase leading-[0.96] tracking-[-0.012em]">
             {title}
           </h1>
+          {intro && <p className="page-intro">{intro}</p>}
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="pt-12 md:pt-16"
+          className="page-content pt-12 md:pt-16"
         >
           {children}
         </motion.div>
