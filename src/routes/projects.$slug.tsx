@@ -29,7 +29,7 @@ export const Route = createFileRoute("/projects/$slug")({
   ),
   errorComponent: ({ error }) => (
     <Page eyebrow="// error" title="Something went wrong.">
-      <p className="text-muted-foreground">{error.message}</p>
+      <p className="text-muted-foreground">{error instanceof Error ? error.message : "Please refresh the page and try again."}</p>
     </Page>
   ),
 });
