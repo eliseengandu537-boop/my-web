@@ -7,7 +7,7 @@ export function Page({
   title,
   eyebrow,
   children,
-  dark = false,
+  dark = true,
   variant = "default",
   intro,
 }: {
@@ -20,7 +20,7 @@ export function Page({
 }) {
   return (
     <div
-      className={`${dark ? "dark " : ""}${variant === "work" ? "work-page " : ""}relative min-h-screen overflow-hidden bg-background text-foreground`}
+      className={`studio-page ${dark ? "dark " : ""}${variant === "work" ? "work-page " : ""}relative min-h-screen overflow-hidden bg-background text-foreground`}
     >
       <Nav />
 

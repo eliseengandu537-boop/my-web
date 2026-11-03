@@ -7,7 +7,11 @@ export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
       { title: "Skills — Mr Ngandu" },
-      { name: "description", content: "Skills across web development, CRM systems, DevOps, graphic design and digital marketing." },
+      {
+        name: "description",
+        content:
+          "Skills across web development, CRM systems, DevOps, graphic design and digital marketing.",
+      },
     ],
   }),
 });
@@ -89,7 +93,11 @@ const groups = [
 
 function Skills() {
   return (
-    <Page eyebrow="// toolbox" title="Skills sharpened on real projects.">
+    <Page
+      eyebrow="// toolbox"
+      title="The tools behind the work."
+      intro="A connected toolkit for building digital products, shaping brands and reaching the right audience."
+    >
       <div className="grid md:grid-cols-2 gap-6">
         {groups.map((g, gi) => (
           <motion.div
@@ -101,7 +109,9 @@ function Skills() {
             className="p-8 rounded-2xl border border-border bg-card perspective-1000 group"
           >
             <div className="preserve-3d transition-transform duration-700 ease-out group-hover:[transform:rotateX(2deg)_rotateY(-2deg)]">
-              <h3 className="text-sm uppercase tracking-widest text-primary mb-6 font-semibold">{g.title}</h3>
+              <h3 className="text-sm uppercase tracking-widest text-primary mb-6 font-semibold">
+                {g.title}
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {g.items.map((s) => (
                   <span

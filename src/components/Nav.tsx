@@ -7,7 +7,8 @@ const links = [
   { to: "/projects", label: "Work" },
   { to: "/about", label: "About" },
   { to: "/skills", label: "Expertise" },
-  { to: "/experience", label: "Journey" },
+  { to: "/experience", label: "What we do" },
+  { to: "/resume", label: "Resume" },
 ] as const;
 
 export function Nav() {
@@ -29,7 +30,7 @@ export function Nav() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-        className="editorial-nav fixed inset-x-0 top-0 z-50"
+        className="editorial-nav studio-nav fixed inset-x-0 top-0 z-50"
       >
         <nav className="mx-auto flex h-[76px] max-w-[1600px] items-center justify-between px-5 md:px-10">
           <Link to="/" className="group flex items-center gap-3" aria-label="Mr Ngandu — home">
@@ -81,10 +82,10 @@ export function Nav() {
             animate={{ clipPath: "inset(0 0 0% 0)", opacity: 1, y: 0 }}
             exit={{ clipPath: "inset(0 0 12% 0)", opacity: 0, y: -8 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-ink px-6 pb-10 pt-28 text-paper lg:hidden"
+            className="studio-menu fixed inset-0 z-40 flex flex-col overflow-y-auto bg-ink px-6 pb-10 pt-28 text-paper lg:hidden"
           >
             <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.28em] text-paper/45">
-              Navigation / 05
+              Explore the studio
             </p>
             <div className="flex flex-1 flex-col">
               {[{ to: "/", label: "Home" }, ...links, { to: "/contact", label: "Contact" }].map(

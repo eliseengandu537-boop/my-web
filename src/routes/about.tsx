@@ -9,14 +9,22 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Mr Ngandu" },
-      { name: "description", content: "Software developer, graphic designer and digital marketer building scalable, user-friendly digital solutions." },
+      {
+        name: "description",
+        content:
+          "Software developer, graphic designer and digital marketer building scalable, user-friendly digital solutions.",
+      },
     ],
   }),
 });
 
 function About() {
   return (
-    <Page eyebrow="// about me" title="Code, design, and a little marketing magic.">
+    <Page
+      eyebrow="// about me"
+      title="A creative mind. A practical approach."
+      intro="Meet the developer and designer connecting thoughtful ideas with well-crafted digital experiences."
+    >
       <div className="space-y-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
           {[about1, about2].map((src, i) => (
@@ -59,12 +67,20 @@ function About() {
             {[
               { label: "Location", value: "South Africa" },
               { label: "Focus", value: "Software · Graphic design · Digital marketing" },
-              { label: "Stack", value: "JavaScript · Node.js · Python · WordPress · Next.js · Docker · AWS" },
+              {
+                label: "Stack",
+                value: "JavaScript · Node.js · Python · WordPress · Next.js · Docker · AWS",
+              },
               { label: "Speaks", value: "English · French" },
             ].map((row) => (
-              <div key={row.label} className="p-5 rounded-xl border border-border bg-card perspective-1000 group">
+              <div
+                key={row.label}
+                className="p-5 rounded-xl border border-border bg-card perspective-1000 group"
+              >
                 <div className="preserve-3d transition-transform duration-500 group-hover:[transform:rotateX(6deg)_rotateY(-6deg)]">
-                  <p className="text-xs uppercase tracking-widest text-primary font-semibold">{row.label}</p>
+                  <p className="text-xs uppercase tracking-widest text-primary font-semibold">
+                    {row.label}
+                  </p>
                   <p className="mt-2 text-foreground">{row.value}</p>
                 </div>
               </div>

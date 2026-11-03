@@ -9,14 +9,22 @@ export const Route = createFileRoute("/resume")({
   head: () => ({
     meta: [
       { title: "Resume — Mr Ngandu" },
-      { name: "description", content: "Download the latest resume of Mr Ngandu — software developer, graphic designer and digital marketer." },
+      {
+        name: "description",
+        content:
+          "Download the latest resume of Mr Ngandu — software developer, graphic designer and digital marketer.",
+      },
     ],
   }),
 });
 
 function Resume() {
   return (
-    <Page eyebrow="// curriculum vitae" title="My latest resume.">
+    <Page
+      eyebrow="// curriculum vitae"
+      title="Experience with purpose."
+      intro="A closer look at my background, technical skills and creative experience. Download a copy to keep."
+    >
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Download card */}
         <motion.div
@@ -111,8 +119,24 @@ function Resume() {
 
           <Section title="Skills">
             <div className="flex flex-wrap gap-2">
-              {["JavaScript", "Node.js", "React", "Docker", "AWS", "PostgreSQL", "CRM Systems", "Graphic Design", "Branding", "UI Design"].map((s) => (
-                <span key={s} className="px-3 py-1.5 rounded-md bg-background border border-border text-xs">{s}</span>
+              {[
+                "JavaScript",
+                "Node.js",
+                "React",
+                "Docker",
+                "AWS",
+                "PostgreSQL",
+                "CRM Systems",
+                "Graphic Design",
+                "Branding",
+                "UI Design",
+              ].map((s) => (
+                <span
+                  key={s}
+                  className="px-3 py-1.5 rounded-md bg-background border border-border text-xs"
+                >
+                  {s}
+                </span>
               ))}
             </div>
           </Section>
